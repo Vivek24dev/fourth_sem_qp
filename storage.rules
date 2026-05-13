@@ -1,0 +1,17 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email == "shreedharmm3@gmail.com";
+    }
+
+    match /papers/{allPaths=**} {
+      allow read: if true;
+      allow create, update: if isAdmin()
+        && request.resource.contentType == "application/pdf";
+      allow delete: if isAdmin();
+    }
+  }
+}

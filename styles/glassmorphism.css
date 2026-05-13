@@ -1,0 +1,23 @@
+.glass-panel {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06)),
+    rgba(12, 14, 12, 0.72);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(22px);
+}
+
+.glass-panel-interactive {
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+.glass-panel-interactive:hover {
+  border-color: rgba(94, 234, 212, 0.36);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.07)),
+    rgba(12, 14, 12, 0.76);
+}

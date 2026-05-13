@@ -1,0 +1,25 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email == "shreedharmm3@gmail.com";
+    }
+
+    match /subjects/{subjectId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /papers/{paperId} {
+      allow read: if true;
+      allow create, delete: if isAdmin();
+      allow update: if isAdmin()
+        || (
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(["downloadCount"])
+          && request.resource.data.downloadCount == resource.data.downloadCount + 1
+        );
+    }
+  }
+}
